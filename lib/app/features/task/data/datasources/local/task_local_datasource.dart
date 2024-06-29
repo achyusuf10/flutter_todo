@@ -3,6 +3,7 @@
 import 'package:flutter_todo/app/features/task/data/models/res_get_local_list_todo_model.dart';
 import 'package:flutter_todo/config/source_config/local/hive_config.dart';
 import 'package:flutter_todo/constants/core/hive_key_const.dart';
+import 'package:flutter_todo/core/loggers/app_logger.dart';
 import 'package:flutter_todo/core/state/data_state.dart';
 import 'package:injectable/injectable.dart';
 
@@ -118,11 +119,14 @@ class TaskLocalDataSourceImpl extends TaskLocalDataSource {
           ),
         );
       }
-      var modelResData = ResGetLocalListTodoModel.fromJson(resData);
+      var modelResData =
+          ResGetLocalListTodoModel.fromJson(resData as Map<dynamic, dynamic>);
       return DataState.success(data: modelResData);
     } catch (e, stackTrace) {
+      AppLogger.logError(e.toString(),
+          runtimeType: runtimeType, stackTrace: stackTrace);
       return DataState.error(
-        message: 'Error Get All Todo',
+        message: e.toString(),
         exception: Exception(e),
         stackTrace: stackTrace,
       );

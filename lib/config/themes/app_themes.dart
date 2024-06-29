@@ -5,10 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 class AppThemes {
   AppThemes._();
 
-  static ThemeData theme = ThemeData(
+  static ThemeData theme = ThemeData.dark().copyWith(
     primaryColor: AppColors.primary,
     focusColor: Colors.transparent,
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: AppColors.secondary,
     textTheme: GoogleFonts.latoTextTheme(),
     colorScheme: ColorScheme.fromSwatch().copyWith(
       primary: AppColors.primary,

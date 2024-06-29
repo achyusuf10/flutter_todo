@@ -2,11 +2,16 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_todo/app/features/task/domain/entities/todo_entity.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/create_todo_uc.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/delete_todo_uc.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/get_all_todo_uc.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/reorder_todo_uc.dart';
+import 'package:flutter_todo/app/features/task/domain/usecases/update_todo_uc.dart';
+import 'package:flutter_todo/app/widgets/main_button_widget.dart';
+import 'package:flutter_todo/app/widgets/main_text_form_field_widget.dart';
 import 'package:flutter_todo/config/routes/app_router.dart';
 import 'package:flutter_todo/core/state/ui_state.dart';
 import 'package:flutter_todo/utils/functions/get_context_func.dart';
@@ -26,15 +31,23 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetAllTodoUC getAllTodoUC;
   final ReOrderTodoUC reOrderTodoUC;
   final DialogService dialogService;
+  final UpdateTodoUc updateTodoUc;
 
-  HomeBloc(this.context, this.createTodoUc, this.deleteTodoUc,
-      this.getAllTodoUC, this.reOrderTodoUC, this.dialogService)
+  HomeBloc(
+      this.context,
+      this.createTodoUc,
+      this.deleteTodoUc,
+      this.getAllTodoUC,
+      this.reOrderTodoUC,
+      this.dialogService,
+      this.updateTodoUc)
       : super(const HomeState()) {
     on<_Started>(_onStarted);
     on<_CreateTodo>(_onCreateTodo);
     on<_DeleteTodo>(_onDeleteTodo);
     on<_ReOrderTodo>(_onReOrderTodo);
     on<_OnTapTodo>(_onTapTodo);
+    on<_OnToogleTodo>(_onToogleTodo);
   }
 
   FutureOr<void> _onStarted(event, emit) async {
@@ -64,13 +77,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> _onCreateTodo(event, emit) async {
     event as _CreateTodo;
+
+    var resTitleTask = await dialogService.showDialogGeneral<String>(
+      content: DialogContentCreateTodoWidget(
+        onTapTitleTask: (titleTask) {
+          context.i.router.maybePop(
+            titleTask,
+          );
+        },
+      ),
+    );
+
+    if (resTitleTask == null || resTitleTask == '') return;
     dialogService.loading();
     var res = await createTodoUc(
       CreateTodoParams(
-        title: event.newTodo.title,
-        description: event.newTodo.description,
-        isCompleted: event.newTodo.isCompleted,
-        dueDate: event.newTodo.dueDate,
+        title: resTitleTask,
+        description: '',
+        isCompleted: false,
       ),
     );
     var resAllTodo = await getAllTodoUC();
@@ -86,11 +110,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
     dialogService.closeOverlay();
     res.map(
-      success: (mapData) {
-        dialogService.dialogSuccess(
-          desc: mapData.data,
-        );
-      },
+      success: (mapData) {},
       error: (mapData) {
         dialogService.dialogProblem(
           desc: mapData.message,
@@ -118,11 +138,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
     dialogService.closeOverlay();
     res.map(
-      success: (mapData) {
-        dialogService.dialogSuccess(
-          desc: mapData.data,
-        );
-      },
+      success: (mapData) {},
       error: (mapData) {
         dialogService.dialogProblem(
           desc: mapData.message,
@@ -153,11 +169,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     );
     dialogService.closeOverlay();
     res.map(
-      success: (mapData) {
-        dialogService.dialogSuccess(
-          desc: mapData.data,
-        );
-      },
+      success: (mapData) {},
       error: (mapData) {
         dialogService.dialogProblem(
           desc: mapData.message,
@@ -168,6 +180,97 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   FutureOr<void> _onTapTodo(event, emit) async {
     event as _OnTapTodo;
-    context.i.router.push(EditTaskRoute(selectedTodo: event.todo));
+    await context.i.router.push(EditTaskRoute(selectedTodo: event.todo));
+    var resAllTodo = await getAllTodoUC();
+    resAllTodo.map(
+      success: (mapData) {
+        emit(
+          state.copyWith(
+            stateDataListTodo: UIState.success(data: mapData.data),
+          ),
+        );
+      },
+      error: (_) {},
+    );
+  }
+
+  FutureOr<void> _onToogleTodo(event, emit) async {
+    event as _OnToogleTodo;
+    dialogService.loading();
+    await updateTodoUc(
+      UpdateTodoParams(
+        todo: event.todo.copyWith(
+          isCompleted: !event.todo.isCompleted,
+        ),
+      ),
+    );
+    var resAllTodo = await getAllTodoUC();
+    resAllTodo.map(
+      success: (mapData) {
+        emit(
+          state.copyWith(
+            stateDataListTodo: UIState.success(data: mapData.data),
+          ),
+        );
+      },
+      error: (_) {},
+    );
+    dialogService.closeOverlay();
+  }
+}
+
+class DialogContentCreateTodoWidget extends StatefulWidget {
+  final Function(String titleTask) onTapTitleTask;
+  const DialogContentCreateTodoWidget({
+    super.key,
+    required this.onTapTitleTask,
+  });
+
+  @override
+  State<DialogContentCreateTodoWidget> createState() =>
+      _DialogContentCreateTodoWidgetState();
+}
+
+class _DialogContentCreateTodoWidgetState
+    extends State<DialogContentCreateTodoWidget> {
+  final TextEditingController _titleTaskController = TextEditingController();
+
+  bool _isButtonEnabled = false;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Input Your Task',
+          style: TextStyle(
+            fontSize: 14.sp,
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        10.verticalSpace,
+        MainTextFormFieldWidget(
+          controller: _titleTaskController,
+          hintText: 'Please input your title task',
+          onChanged: (value) {
+            if (value.length > 4) {
+              _isButtonEnabled = true;
+            } else {
+              _isButtonEnabled = false;
+            }
+            setState(() {});
+          },
+        ),
+        24.verticalSpace,
+        MainButtonWidget(
+          text: 'Submit',
+          onTap: _isButtonEnabled
+              ? () {
+                  widget.onTapTitleTask(_titleTaskController.text);
+                }
+              : null,
+        )
+      ],
+    );
   }
 }

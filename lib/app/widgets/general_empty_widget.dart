@@ -15,7 +15,19 @@ class GeneralEmptyErrorWidget extends StatelessWidget {
   final TextStyle? customTitleTextStyle;
   final Function()? onRefresh;
 
-  const GeneralEmptyErrorWidget({
+  const GeneralEmptyErrorWidget.error({
+    super.key,
+    this.descText = 'Sorry, there was an error',
+    this.titleText = 'Upps, something went wrong! Please try again later.',
+    this.customDescTextStyle,
+    this.customTitleTextStyle,
+    this.customHeightContent,
+    this.onRefresh,
+    this.customUrlImage = LottieAssetsConstants.animError,
+    this.heightImage,
+    this.widthImage,
+  });
+  const GeneralEmptyErrorWidget.empty({
     super.key,
     this.descText = 'Sorry, your data is not available',
     this.titleText = 'Data not found',
@@ -23,7 +35,7 @@ class GeneralEmptyErrorWidget extends StatelessWidget {
     this.customTitleTextStyle,
     this.customHeightContent,
     this.onRefresh,
-    this.customUrlImage = LottieAssetsConstants.animError,
+    this.customUrlImage = LottieAssetsConstants.animDataNotFound,
     this.heightImage,
     this.widthImage,
   });

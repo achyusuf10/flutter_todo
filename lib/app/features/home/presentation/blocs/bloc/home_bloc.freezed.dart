@@ -19,28 +19,31 @@ mixin _$HomeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(TodoEntity newTodo) createTodo,
+    required TResult Function() createTodo,
     required TResult Function(String idTodo) deleteTodo,
     required TResult Function(int newIndex, int oldIndex) reOrderToDo,
     required TResult Function(TodoEntity todo) onTapTodo,
+    required TResult Function(TodoEntity todo) onToogleTodo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(TodoEntity newTodo)? createTodo,
+    TResult? Function()? createTodo,
     TResult? Function(String idTodo)? deleteTodo,
     TResult? Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult? Function(TodoEntity todo)? onTapTodo,
+    TResult? Function(TodoEntity todo)? onToogleTodo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(TodoEntity newTodo)? createTodo,
+    TResult Function()? createTodo,
     TResult Function(String idTodo)? deleteTodo,
     TResult Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult Function(TodoEntity todo)? onTapTodo,
+    TResult Function(TodoEntity todo)? onToogleTodo,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +54,7 @@ mixin _$HomeEvent {
     required TResult Function(_DeleteTodo value) deleteTodo,
     required TResult Function(_ReOrderTodo value) reOrderToDo,
     required TResult Function(_OnTapTodo value) onTapTodo,
+    required TResult Function(_OnToogleTodo value) onToogleTodo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +64,7 @@ mixin _$HomeEvent {
     TResult? Function(_DeleteTodo value)? deleteTodo,
     TResult? Function(_ReOrderTodo value)? reOrderToDo,
     TResult? Function(_OnTapTodo value)? onTapTodo,
+    TResult? Function(_OnToogleTodo value)? onToogleTodo,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +74,7 @@ mixin _$HomeEvent {
     TResult Function(_DeleteTodo value)? deleteTodo,
     TResult Function(_ReOrderTodo value)? reOrderToDo,
     TResult Function(_OnTapTodo value)? onTapTodo,
+    TResult Function(_OnToogleTodo value)? onToogleTodo,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -130,10 +136,11 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(TodoEntity newTodo) createTodo,
+    required TResult Function() createTodo,
     required TResult Function(String idTodo) deleteTodo,
     required TResult Function(int newIndex, int oldIndex) reOrderToDo,
     required TResult Function(TodoEntity todo) onTapTodo,
+    required TResult Function(TodoEntity todo) onToogleTodo,
   }) {
     return started();
   }
@@ -142,10 +149,11 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(TodoEntity newTodo)? createTodo,
+    TResult? Function()? createTodo,
     TResult? Function(String idTodo)? deleteTodo,
     TResult? Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult? Function(TodoEntity todo)? onTapTodo,
+    TResult? Function(TodoEntity todo)? onToogleTodo,
   }) {
     return started?.call();
   }
@@ -154,10 +162,11 @@ class _$StartedImpl implements _Started {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(TodoEntity newTodo)? createTodo,
+    TResult Function()? createTodo,
     TResult Function(String idTodo)? deleteTodo,
     TResult Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult Function(TodoEntity todo)? onTapTodo,
+    TResult Function(TodoEntity todo)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -174,6 +183,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_DeleteTodo value) deleteTodo,
     required TResult Function(_ReOrderTodo value) reOrderToDo,
     required TResult Function(_OnTapTodo value) onTapTodo,
+    required TResult Function(_OnToogleTodo value) onToogleTodo,
   }) {
     return started(this);
   }
@@ -186,6 +196,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_DeleteTodo value)? deleteTodo,
     TResult? Function(_ReOrderTodo value)? reOrderToDo,
     TResult? Function(_OnTapTodo value)? onTapTodo,
+    TResult? Function(_OnToogleTodo value)? onToogleTodo,
   }) {
     return started?.call(this);
   }
@@ -198,6 +209,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_DeleteTodo value)? deleteTodo,
     TResult Function(_ReOrderTodo value)? reOrderToDo,
     TResult Function(_OnTapTodo value)? onTapTodo,
+    TResult Function(_OnToogleTodo value)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -216,8 +228,6 @@ abstract class _$$CreateTodoImplCopyWith<$Res> {
   factory _$$CreateTodoImplCopyWith(
           _$CreateTodoImpl value, $Res Function(_$CreateTodoImpl) then) =
       __$$CreateTodoImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({TodoEntity newTodo});
 }
 
 /// @nodoc
@@ -227,87 +237,66 @@ class __$$CreateTodoImplCopyWithImpl<$Res>
   __$$CreateTodoImplCopyWithImpl(
       _$CreateTodoImpl _value, $Res Function(_$CreateTodoImpl) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? newTodo = null,
-  }) {
-    return _then(_$CreateTodoImpl(
-      newTodo: null == newTodo
-          ? _value.newTodo
-          : newTodo // ignore: cast_nullable_to_non_nullable
-              as TodoEntity,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$CreateTodoImpl implements _CreateTodo {
-  const _$CreateTodoImpl({required this.newTodo});
-
-  @override
-  final TodoEntity newTodo;
+  const _$CreateTodoImpl();
 
   @override
   String toString() {
-    return 'HomeEvent.createTodo(newTodo: $newTodo)';
+    return 'HomeEvent.createTodo()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$CreateTodoImpl &&
-            (identical(other.newTodo, newTodo) || other.newTodo == newTodo));
+        (other.runtimeType == runtimeType && other is _$CreateTodoImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, newTodo);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$CreateTodoImplCopyWith<_$CreateTodoImpl> get copyWith =>
-      __$$CreateTodoImplCopyWithImpl<_$CreateTodoImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(TodoEntity newTodo) createTodo,
+    required TResult Function() createTodo,
     required TResult Function(String idTodo) deleteTodo,
     required TResult Function(int newIndex, int oldIndex) reOrderToDo,
     required TResult Function(TodoEntity todo) onTapTodo,
+    required TResult Function(TodoEntity todo) onToogleTodo,
   }) {
-    return createTodo(newTodo);
+    return createTodo();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(TodoEntity newTodo)? createTodo,
+    TResult? Function()? createTodo,
     TResult? Function(String idTodo)? deleteTodo,
     TResult? Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult? Function(TodoEntity todo)? onTapTodo,
+    TResult? Function(TodoEntity todo)? onToogleTodo,
   }) {
-    return createTodo?.call(newTodo);
+    return createTodo?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(TodoEntity newTodo)? createTodo,
+    TResult Function()? createTodo,
     TResult Function(String idTodo)? deleteTodo,
     TResult Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult Function(TodoEntity todo)? onTapTodo,
+    TResult Function(TodoEntity todo)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (createTodo != null) {
-      return createTodo(newTodo);
+      return createTodo();
     }
     return orElse();
   }
@@ -320,6 +309,7 @@ class _$CreateTodoImpl implements _CreateTodo {
     required TResult Function(_DeleteTodo value) deleteTodo,
     required TResult Function(_ReOrderTodo value) reOrderToDo,
     required TResult Function(_OnTapTodo value) onTapTodo,
+    required TResult Function(_OnToogleTodo value) onToogleTodo,
   }) {
     return createTodo(this);
   }
@@ -332,6 +322,7 @@ class _$CreateTodoImpl implements _CreateTodo {
     TResult? Function(_DeleteTodo value)? deleteTodo,
     TResult? Function(_ReOrderTodo value)? reOrderToDo,
     TResult? Function(_OnTapTodo value)? onTapTodo,
+    TResult? Function(_OnToogleTodo value)? onToogleTodo,
   }) {
     return createTodo?.call(this);
   }
@@ -344,6 +335,7 @@ class _$CreateTodoImpl implements _CreateTodo {
     TResult Function(_DeleteTodo value)? deleteTodo,
     TResult Function(_ReOrderTodo value)? reOrderToDo,
     TResult Function(_OnTapTodo value)? onTapTodo,
+    TResult Function(_OnToogleTodo value)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (createTodo != null) {
@@ -354,13 +346,7 @@ class _$CreateTodoImpl implements _CreateTodo {
 }
 
 abstract class _CreateTodo implements HomeEvent {
-  const factory _CreateTodo({required final TodoEntity newTodo}) =
-      _$CreateTodoImpl;
-
-  TodoEntity get newTodo;
-  @JsonKey(ignore: true)
-  _$$CreateTodoImplCopyWith<_$CreateTodoImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory _CreateTodo() = _$CreateTodoImpl;
 }
 
 /// @nodoc
@@ -428,10 +414,11 @@ class _$DeleteTodoImpl implements _DeleteTodo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(TodoEntity newTodo) createTodo,
+    required TResult Function() createTodo,
     required TResult Function(String idTodo) deleteTodo,
     required TResult Function(int newIndex, int oldIndex) reOrderToDo,
     required TResult Function(TodoEntity todo) onTapTodo,
+    required TResult Function(TodoEntity todo) onToogleTodo,
   }) {
     return deleteTodo(idTodo);
   }
@@ -440,10 +427,11 @@ class _$DeleteTodoImpl implements _DeleteTodo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(TodoEntity newTodo)? createTodo,
+    TResult? Function()? createTodo,
     TResult? Function(String idTodo)? deleteTodo,
     TResult? Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult? Function(TodoEntity todo)? onTapTodo,
+    TResult? Function(TodoEntity todo)? onToogleTodo,
   }) {
     return deleteTodo?.call(idTodo);
   }
@@ -452,10 +440,11 @@ class _$DeleteTodoImpl implements _DeleteTodo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(TodoEntity newTodo)? createTodo,
+    TResult Function()? createTodo,
     TResult Function(String idTodo)? deleteTodo,
     TResult Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult Function(TodoEntity todo)? onTapTodo,
+    TResult Function(TodoEntity todo)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (deleteTodo != null) {
@@ -472,6 +461,7 @@ class _$DeleteTodoImpl implements _DeleteTodo {
     required TResult Function(_DeleteTodo value) deleteTodo,
     required TResult Function(_ReOrderTodo value) reOrderToDo,
     required TResult Function(_OnTapTodo value) onTapTodo,
+    required TResult Function(_OnToogleTodo value) onToogleTodo,
   }) {
     return deleteTodo(this);
   }
@@ -484,6 +474,7 @@ class _$DeleteTodoImpl implements _DeleteTodo {
     TResult? Function(_DeleteTodo value)? deleteTodo,
     TResult? Function(_ReOrderTodo value)? reOrderToDo,
     TResult? Function(_OnTapTodo value)? onTapTodo,
+    TResult? Function(_OnToogleTodo value)? onToogleTodo,
   }) {
     return deleteTodo?.call(this);
   }
@@ -496,6 +487,7 @@ class _$DeleteTodoImpl implements _DeleteTodo {
     TResult Function(_DeleteTodo value)? deleteTodo,
     TResult Function(_ReOrderTodo value)? reOrderToDo,
     TResult Function(_OnTapTodo value)? onTapTodo,
+    TResult Function(_OnToogleTodo value)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (deleteTodo != null) {
@@ -589,10 +581,11 @@ class _$ReOrderTodoImpl implements _ReOrderTodo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(TodoEntity newTodo) createTodo,
+    required TResult Function() createTodo,
     required TResult Function(String idTodo) deleteTodo,
     required TResult Function(int newIndex, int oldIndex) reOrderToDo,
     required TResult Function(TodoEntity todo) onTapTodo,
+    required TResult Function(TodoEntity todo) onToogleTodo,
   }) {
     return reOrderToDo(newIndex, oldIndex);
   }
@@ -601,10 +594,11 @@ class _$ReOrderTodoImpl implements _ReOrderTodo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(TodoEntity newTodo)? createTodo,
+    TResult? Function()? createTodo,
     TResult? Function(String idTodo)? deleteTodo,
     TResult? Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult? Function(TodoEntity todo)? onTapTodo,
+    TResult? Function(TodoEntity todo)? onToogleTodo,
   }) {
     return reOrderToDo?.call(newIndex, oldIndex);
   }
@@ -613,10 +607,11 @@ class _$ReOrderTodoImpl implements _ReOrderTodo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(TodoEntity newTodo)? createTodo,
+    TResult Function()? createTodo,
     TResult Function(String idTodo)? deleteTodo,
     TResult Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult Function(TodoEntity todo)? onTapTodo,
+    TResult Function(TodoEntity todo)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (reOrderToDo != null) {
@@ -633,6 +628,7 @@ class _$ReOrderTodoImpl implements _ReOrderTodo {
     required TResult Function(_DeleteTodo value) deleteTodo,
     required TResult Function(_ReOrderTodo value) reOrderToDo,
     required TResult Function(_OnTapTodo value) onTapTodo,
+    required TResult Function(_OnToogleTodo value) onToogleTodo,
   }) {
     return reOrderToDo(this);
   }
@@ -645,6 +641,7 @@ class _$ReOrderTodoImpl implements _ReOrderTodo {
     TResult? Function(_DeleteTodo value)? deleteTodo,
     TResult? Function(_ReOrderTodo value)? reOrderToDo,
     TResult? Function(_OnTapTodo value)? onTapTodo,
+    TResult? Function(_OnToogleTodo value)? onToogleTodo,
   }) {
     return reOrderToDo?.call(this);
   }
@@ -657,6 +654,7 @@ class _$ReOrderTodoImpl implements _ReOrderTodo {
     TResult Function(_DeleteTodo value)? deleteTodo,
     TResult Function(_ReOrderTodo value)? reOrderToDo,
     TResult Function(_OnTapTodo value)? onTapTodo,
+    TResult Function(_OnToogleTodo value)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (reOrderToDo != null) {
@@ -743,10 +741,11 @@ class _$OnTapTodoImpl implements _OnTapTodo {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() started,
-    required TResult Function(TodoEntity newTodo) createTodo,
+    required TResult Function() createTodo,
     required TResult Function(String idTodo) deleteTodo,
     required TResult Function(int newIndex, int oldIndex) reOrderToDo,
     required TResult Function(TodoEntity todo) onTapTodo,
+    required TResult Function(TodoEntity todo) onToogleTodo,
   }) {
     return onTapTodo(todo);
   }
@@ -755,10 +754,11 @@ class _$OnTapTodoImpl implements _OnTapTodo {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
-    TResult? Function(TodoEntity newTodo)? createTodo,
+    TResult? Function()? createTodo,
     TResult? Function(String idTodo)? deleteTodo,
     TResult? Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult? Function(TodoEntity todo)? onTapTodo,
+    TResult? Function(TodoEntity todo)? onToogleTodo,
   }) {
     return onTapTodo?.call(todo);
   }
@@ -767,10 +767,11 @@ class _$OnTapTodoImpl implements _OnTapTodo {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
-    TResult Function(TodoEntity newTodo)? createTodo,
+    TResult Function()? createTodo,
     TResult Function(String idTodo)? deleteTodo,
     TResult Function(int newIndex, int oldIndex)? reOrderToDo,
     TResult Function(TodoEntity todo)? onTapTodo,
+    TResult Function(TodoEntity todo)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (onTapTodo != null) {
@@ -787,6 +788,7 @@ class _$OnTapTodoImpl implements _OnTapTodo {
     required TResult Function(_DeleteTodo value) deleteTodo,
     required TResult Function(_ReOrderTodo value) reOrderToDo,
     required TResult Function(_OnTapTodo value) onTapTodo,
+    required TResult Function(_OnToogleTodo value) onToogleTodo,
   }) {
     return onTapTodo(this);
   }
@@ -799,6 +801,7 @@ class _$OnTapTodoImpl implements _OnTapTodo {
     TResult? Function(_DeleteTodo value)? deleteTodo,
     TResult? Function(_ReOrderTodo value)? reOrderToDo,
     TResult? Function(_OnTapTodo value)? onTapTodo,
+    TResult? Function(_OnToogleTodo value)? onToogleTodo,
   }) {
     return onTapTodo?.call(this);
   }
@@ -811,6 +814,7 @@ class _$OnTapTodoImpl implements _OnTapTodo {
     TResult Function(_DeleteTodo value)? deleteTodo,
     TResult Function(_ReOrderTodo value)? reOrderToDo,
     TResult Function(_OnTapTodo value)? onTapTodo,
+    TResult Function(_OnToogleTodo value)? onToogleTodo,
     required TResult orElse(),
   }) {
     if (onTapTodo != null) {
@@ -826,6 +830,164 @@ abstract class _OnTapTodo implements HomeEvent {
   TodoEntity get todo;
   @JsonKey(ignore: true)
   _$$OnTapTodoImplCopyWith<_$OnTapTodoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnToogleTodoImplCopyWith<$Res> {
+  factory _$$OnToogleTodoImplCopyWith(
+          _$OnToogleTodoImpl value, $Res Function(_$OnToogleTodoImpl) then) =
+      __$$OnToogleTodoImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TodoEntity todo});
+}
+
+/// @nodoc
+class __$$OnToogleTodoImplCopyWithImpl<$Res>
+    extends _$HomeEventCopyWithImpl<$Res, _$OnToogleTodoImpl>
+    implements _$$OnToogleTodoImplCopyWith<$Res> {
+  __$$OnToogleTodoImplCopyWithImpl(
+      _$OnToogleTodoImpl _value, $Res Function(_$OnToogleTodoImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? todo = null,
+  }) {
+    return _then(_$OnToogleTodoImpl(
+      todo: null == todo
+          ? _value.todo
+          : todo // ignore: cast_nullable_to_non_nullable
+              as TodoEntity,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnToogleTodoImpl implements _OnToogleTodo {
+  const _$OnToogleTodoImpl({required this.todo});
+
+  @override
+  final TodoEntity todo;
+
+  @override
+  String toString() {
+    return 'HomeEvent.onToogleTodo(todo: $todo)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnToogleTodoImpl &&
+            (identical(other.todo, todo) || other.todo == todo));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, todo);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnToogleTodoImplCopyWith<_$OnToogleTodoImpl> get copyWith =>
+      __$$OnToogleTodoImplCopyWithImpl<_$OnToogleTodoImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() createTodo,
+    required TResult Function(String idTodo) deleteTodo,
+    required TResult Function(int newIndex, int oldIndex) reOrderToDo,
+    required TResult Function(TodoEntity todo) onTapTodo,
+    required TResult Function(TodoEntity todo) onToogleTodo,
+  }) {
+    return onToogleTodo(todo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function()? createTodo,
+    TResult? Function(String idTodo)? deleteTodo,
+    TResult? Function(int newIndex, int oldIndex)? reOrderToDo,
+    TResult? Function(TodoEntity todo)? onTapTodo,
+    TResult? Function(TodoEntity todo)? onToogleTodo,
+  }) {
+    return onToogleTodo?.call(todo);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? createTodo,
+    TResult Function(String idTodo)? deleteTodo,
+    TResult Function(int newIndex, int oldIndex)? reOrderToDo,
+    TResult Function(TodoEntity todo)? onTapTodo,
+    TResult Function(TodoEntity todo)? onToogleTodo,
+    required TResult orElse(),
+  }) {
+    if (onToogleTodo != null) {
+      return onToogleTodo(todo);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_CreateTodo value) createTodo,
+    required TResult Function(_DeleteTodo value) deleteTodo,
+    required TResult Function(_ReOrderTodo value) reOrderToDo,
+    required TResult Function(_OnTapTodo value) onTapTodo,
+    required TResult Function(_OnToogleTodo value) onToogleTodo,
+  }) {
+    return onToogleTodo(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_CreateTodo value)? createTodo,
+    TResult? Function(_DeleteTodo value)? deleteTodo,
+    TResult? Function(_ReOrderTodo value)? reOrderToDo,
+    TResult? Function(_OnTapTodo value)? onTapTodo,
+    TResult? Function(_OnToogleTodo value)? onToogleTodo,
+  }) {
+    return onToogleTodo?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_CreateTodo value)? createTodo,
+    TResult Function(_DeleteTodo value)? deleteTodo,
+    TResult Function(_ReOrderTodo value)? reOrderToDo,
+    TResult Function(_OnTapTodo value)? onTapTodo,
+    TResult Function(_OnToogleTodo value)? onToogleTodo,
+    required TResult orElse(),
+  }) {
+    if (onToogleTodo != null) {
+      return onToogleTodo(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnToogleTodo implements HomeEvent {
+  const factory _OnToogleTodo({required final TodoEntity todo}) =
+      _$OnToogleTodoImpl;
+
+  TodoEntity get todo;
+  @JsonKey(ignore: true)
+  _$$OnToogleTodoImplCopyWith<_$OnToogleTodoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

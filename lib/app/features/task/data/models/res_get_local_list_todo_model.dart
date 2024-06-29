@@ -14,12 +14,15 @@ class ResGetLocalListTodoModel {
     };
   }
 
-  factory ResGetLocalListTodoModel.fromJson(Map<String, dynamic> map) {
+  factory ResGetLocalListTodoModel.fromJson(Map<dynamic, dynamic> map) {
     return ResGetLocalListTodoModel(
       data: (map['data'] == null)
           ? []
           : List<TodoModel>.from(
-              map['data']?.map((x) => TodoModel.fromJson(x))),
+              map['data']?.map(
+                (x) => TodoModel.fromJson(x),
+              ),
+            ),
     );
   }
 
@@ -68,7 +71,7 @@ class TodoModel {
     };
   }
 
-  factory TodoModel.fromJson(Map<String, dynamic> map) {
+  factory TodoModel.fromJson(Map<dynamic, dynamic> map) {
     return TodoModel(
       isCompleted: map['isCompleted'] ?? false,
       createdAt: map['createdAt'] ?? '',

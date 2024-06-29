@@ -114,10 +114,10 @@ class MainButtonWidget extends StatelessWidget {
         ),
         maximumSize: Size(
           maximumWidth ?? double.infinity,
-          maximumHeight ?? 70.h,
+          maximumHeight ?? 48.h,
         ),
         padding:
-            padding ?? EdgeInsets.symmetric(vertical: 13.h, horizontal: 10.w),
+            padding ?? EdgeInsets.symmetric(vertical: 8.h, horizontal: 10.w),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius ?? 8.r),
           side: outlinedColor == null
@@ -135,7 +135,7 @@ class MainButtonWidget extends StatelessWidget {
               style: textStyle ??
                   TextStyle(
                     color: textColor,
-                    fontSize: 20.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w600,
                   ),
             ),
