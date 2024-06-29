@@ -26,7 +26,7 @@ abstract class TaskLocalDataSource {
 
   Future<DataState<String>> deleteAllTodo();
 
-  Future<DataState<String>> _saveAllData({
+  Future<DataState<String>> saveAllData({
     required List<TodoModel> listData,
   });
 }
@@ -45,7 +45,7 @@ class TaskLocalDataSourceImpl extends TaskLocalDataSource {
         success: (mapSuccess) {
           List<TodoModel> listData = List.from(mapSuccess.data.data);
           listData.add(todo);
-          return _saveAllData(listData: listData);
+          return saveAllData(listData: listData);
         },
         error: (mapError) {
           return DataState.error(
@@ -88,7 +88,7 @@ class TaskLocalDataSourceImpl extends TaskLocalDataSource {
           int index = listData.indexWhere((element) => element.id == id);
           if (index == -1) throw ('Data Todo Not Found');
           listData.removeWhere((element) => element.id == id);
-          return _saveAllData(listData: listData);
+          return saveAllData(listData: listData);
         },
         error: (mapError) {
           return DataState.error(
@@ -150,7 +150,7 @@ class TaskLocalDataSourceImpl extends TaskLocalDataSource {
             dueDate: dueDate == null ? '' : dueDate.toString(),
             isCompleted: isCompleted,
           );
-          return _saveAllData(listData: listData);
+          return saveAllData(listData: listData);
         },
         error: (mapError) {
           return DataState.error(
@@ -170,7 +170,7 @@ class TaskLocalDataSourceImpl extends TaskLocalDataSource {
   }
 
   @override
-  Future<DataState<String>> _saveAllData({
+  Future<DataState<String>> saveAllData({
     required List<TodoModel> listData,
   }) async {
     try {

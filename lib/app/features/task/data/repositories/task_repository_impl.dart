@@ -12,16 +12,21 @@ class TaskRepositoryImpl extends TaskRepository {
   TaskRepositoryImpl({required TaskLocalDataSource taskLocalDataSource})
       : _taskLocalDataSource = taskLocalDataSource;
   @override
-  Future<DataState<String>> addTodo({required TodoEntity todo}) async {
+  Future<DataState<String>> addTodo({
+    required String title,
+    required String description,
+    required bool isCompleted,
+    required DateTime? dueDate,
+  }) async {
     try {
       var res = await _taskLocalDataSource.addTodo(
         todo: TodoModel(
           createdAt: DateTime.now().toString(),
-          isCompleted: false,
+          isCompleted: isCompleted,
           id: DateTime.now().millisecondsSinceEpoch.toString(),
-          title: todo.title,
-          description: todo.description,
-          dueDate: (todo.dueDate == null) ? '' : todo.dueDate.toString(),
+          title: title,
+          description: description,
+          dueDate: (dueDate == null) ? '' : dueDate.toString(),
         ),
       );
       return res;
@@ -102,5 +107,42 @@ class TaskRepositoryImpl extends TaskRepository {
         stackTrace: stackTrace,
       );
     }
+  }
+
+  @override
+  Future<DataState<String>> saveListTodo(
+      {required List<TodoEntity> listTodo}) async {
+    List<TodoModel> resLocalModel =
+        (await _taskLocalDataSource.getAllListTodo())
+                .whenOrNull(success: (mapData) => mapData.data) ??
+            [];
+    List<TodoModel> convertListModel = listTodo.map(
+      (e) {
+        var createdAt = resLocalModel
+            .firstWhere(
+              (element) => element.id == e.id,
+              orElse: () => TodoModel(
+                createdAt: DateTime.now().toString(),
+                isCompleted: e.isCompleted,
+                id: e.id,
+                title: e.title,
+                description: e.description,
+                dueDate: e.dueDate == null ? '' : e.dueDate.toString(),
+              ),
+            )
+            .createdAt;
+        return TodoModel(
+          createdAt: createdAt,
+          isCompleted: e.isCompleted,
+          id: e.id,
+          title: e.title,
+          description: e.description,
+          dueDate: e.dueDate == null ? '' : e.dueDate.toString(),
+        );
+      },
+    ).toList();
+    return await _taskLocalDataSource.saveAllData(
+      listData: convertListModel,
+    );
   }
 }

@@ -16,9 +16,13 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     EditTaskRoute.name: (routeData) {
+      final args = routeData.argsAs<EditTaskRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const EditTaskPage(),
+        child: EditTaskPage(
+          key: args.key,
+          selectedTodo: args.selectedTodo,
+        ),
       );
     },
     HomeRoute.name: (routeData) {
@@ -38,16 +42,40 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [EditTaskPage]
-class EditTaskRoute extends PageRouteInfo<void> {
-  const EditTaskRoute({List<PageRouteInfo>? children})
-      : super(
+class EditTaskRoute extends PageRouteInfo<EditTaskRouteArgs> {
+  EditTaskRoute({
+    Key? key,
+    required TodoEntity selectedTodo,
+    List<PageRouteInfo>? children,
+  }) : super(
           EditTaskRoute.name,
+          args: EditTaskRouteArgs(
+            key: key,
+            selectedTodo: selectedTodo,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'EditTaskRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<EditTaskRouteArgs> page =
+      PageInfo<EditTaskRouteArgs>(name);
+}
+
+class EditTaskRouteArgs {
+  const EditTaskRouteArgs({
+    this.key,
+    required this.selectedTodo,
+  });
+
+  final Key? key;
+
+  final TodoEntity selectedTodo;
+
+  @override
+  String toString() {
+    return 'EditTaskRouteArgs{key: $key, selectedTodo: $selectedTodo}';
+  }
 }
 
 /// generated route for
