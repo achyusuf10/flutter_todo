@@ -58,6 +58,14 @@ class _HomePageState extends State<HomePage> {
           builder: (context, state) {
             return state.when(
               success: (listData) {
+                if (listData.isEmpty) {
+                  return const Center(
+                    child: GeneralEmptyErrorWidget.empty(
+                      titleText: 'Add Your ToDo',
+                      descText: '',
+                    ),
+                  );
+                }
                 return Theme(
                   data: Theme.of(context).copyWith(
                     canvasColor: Colors.transparent,
@@ -158,7 +166,8 @@ class _HomePageState extends State<HomePage> {
               },
               empty: (message) => Center(
                 child: GeneralEmptyErrorWidget.empty(
-                  descText: message,
+                  titleText: message,
+                  descText: '',
                 ),
               ),
               loading: () => const ShimmerWidget.list(
@@ -169,6 +178,7 @@ class _HomePageState extends State<HomePage> {
                   onRefresh: () {
                     _bloc.add(const HomeEvent.started());
                   },
+                  titleText: 'Upps..',
                   descText: message,
                 ),
               ),
