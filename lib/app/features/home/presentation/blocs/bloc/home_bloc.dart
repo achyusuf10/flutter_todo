@@ -2,16 +2,13 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_todo/app/features/home/presentation/widgets/dialog_content_create_todo_widget.dart';
 import 'package:flutter_todo/app/features/task/domain/entities/todo_entity.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/create_todo_uc.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/delete_todo_uc.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/get_all_todo_uc.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/reorder_todo_uc.dart';
 import 'package:flutter_todo/app/features/task/domain/usecases/update_todo_uc.dart';
-import 'package:flutter_todo/app/widgets/main_button_widget.dart';
-import 'package:flutter_todo/app/widgets/main_text_form_field_widget.dart';
 import 'package:flutter_todo/config/routes/app_router.dart';
 import 'package:flutter_todo/core/state/ui_state.dart';
 import 'package:flutter_todo/utils/functions/get_context_func.dart';
@@ -216,61 +213,5 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       error: (_) {},
     );
     dialogService.closeOverlay();
-  }
-}
-
-class DialogContentCreateTodoWidget extends StatefulWidget {
-  final Function(String titleTask) onTapTitleTask;
-  const DialogContentCreateTodoWidget({
-    super.key,
-    required this.onTapTitleTask,
-  });
-
-  @override
-  State<DialogContentCreateTodoWidget> createState() =>
-      _DialogContentCreateTodoWidgetState();
-}
-
-class _DialogContentCreateTodoWidgetState
-    extends State<DialogContentCreateTodoWidget> {
-  final TextEditingController _titleTaskController = TextEditingController();
-
-  bool _isButtonEnabled = false;
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Input Your Task',
-          style: TextStyle(
-            fontSize: 14.sp,
-            color: Colors.white,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        10.verticalSpace,
-        MainTextFormFieldWidget(
-          controller: _titleTaskController,
-          hintText: 'Please input your title task',
-          onChanged: (value) {
-            if (value.length > 4) {
-              _isButtonEnabled = true;
-            } else {
-              _isButtonEnabled = false;
-            }
-            setState(() {});
-          },
-        ),
-        24.verticalSpace,
-        MainButtonWidget(
-          text: 'Submit',
-          onTap: _isButtonEnabled
-              ? () {
-                  widget.onTapTitleTask(_titleTaskController.text);
-                }
-              : null,
-        )
-      ],
-    );
   }
 }
